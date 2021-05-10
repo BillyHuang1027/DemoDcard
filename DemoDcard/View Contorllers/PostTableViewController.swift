@@ -10,6 +10,7 @@ import UIKit
 class PostTableViewController: UITableViewController {
     
     var posts = [Post]()
+    var postDetail: PostDetail?
     
     @objc func loadData() {
         let urlStr = "https://www.dcard.tw/service/api/v2/posts"
@@ -37,6 +38,13 @@ class PostTableViewController: UITableViewController {
         
         loadData()
         refreshControl()
+        
+        let barButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = barButtonItem
+        let image = UIImage(systemName: "arrow.backward")
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.setBackIndicatorImage(image, transitionMaskImage: image)
+        navigationController?.navigationBar.standardAppearance = barAppearance
     }
     //下拉更新
     func refreshControl() {
@@ -134,14 +142,18 @@ class PostTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
+        if let row = tableView.indexPathForSelectedRow?.row,
+           let contorller = segue.destination as? PostDetailTableViewController {
+            let post = posts[row]
+            contorller.post = post
+        }
     }
-    */
+    
 
 }
