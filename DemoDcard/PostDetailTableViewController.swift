@@ -17,6 +17,7 @@ class PostDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "\(post.title)"
         contentView.contentLabel.text = ""
         loadPostDetailData()
         loadCommentsData()
